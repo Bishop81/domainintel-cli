@@ -1,6 +1,6 @@
 {
   "name": "@domainintel/cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Domain intelligence from your terminal: WHOIS, DNS, SSL/TLS, HTTP security headers, reputation (DNSBL/Spamhaus) and subdomain discovery. Runs locally, JSON output, CI-friendly exit codes.",
   "publishConfig": {
     "access": "public"

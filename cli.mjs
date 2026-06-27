@@ -486,8 +486,7 @@ function renderReputation(domain, rep) {
   const spamhausListed = rep.spamhaus?.listed;
   kvRows([
     ['DNSBL', dnsblListed ? c.red('LISTED') : c.green('clean')],
-    ['Spamhaus', spamhausListed ? c.red('LISTED') : c.green('clean')],
-    ['Safe Browsing', rep.safeBrowsing?.safe === false ? c.red('flagged') : c.green('clean')]
+    ['Spamhaus', spamhausListed ? c.red('LISTED') : c.green('clean')]
   ]);
 
   if (dnsblListed) {
