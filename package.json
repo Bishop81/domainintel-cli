@@ -1,0 +1,57 @@
+{
+  "name": "@domainintel/cli",
+  "version": "1.0.0",
+  "description": "Domain intelligence from your terminal: WHOIS, DNS, SSL/TLS, HTTP security headers, reputation (DNSBL/Spamhaus) and subdomain discovery. Runs locally, JSON output, CI-friendly exit codes.",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "domainintel": "dist/cli.mjs"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "cli": "node cli.mjs",
+    "prepublishOnly": "node build.mjs"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "domain",
+    "dns",
+    "whois",
+    "ssl",
+    "tls",
+    "certificate",
+    "security-headers",
+    "spf",
+    "dmarc",
+    "dnsbl",
+    "spamhaus",
+    "reputation",
+    "subdomains",
+    "subdomain-finder",
+    "domain-intelligence",
+    "cli",
+    "devops",
+    "ci"
+  ],
+  "license": "MIT",
+  "homepage": "https://domainintel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bishop81/domainintel-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Bishop81/domainintel-cli/issues"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.0",
+    "whois": "2.15.0"
+  }
+}
