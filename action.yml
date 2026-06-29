@@ -1,0 +1,35 @@
+name: 'DomainIntel Check'
+description: 'Check a domain''s DNS, SSL/TLS, email auth, security headers and reputation in CI. Fail the build on problems.'
+branding:
+  icon: 'shield'
+  color: 'blue'
+inputs:
+  domain:
+    description: 'Domain to check, e.g. example.com'
+    required: true
+  check:
+    description: 'Which check to run: full, dns, whois, ssl, headers, reputation, subdomains.'
+    required: false
+    default: 'full'
+  fail-under:
+    description: 'For the ssl check only: fail if the certificate expires within this many days.'
+    required: false
+    default: ''
+  exit-code:
+    description: 'Fail the job (exit 1) when the check finds problems. Set to false to report only.'
+    required: false
+    default: 'true'
+  json:
+    description: 'Output raw JSON instead of the formatted report.'
+    required: false
+    default: 'false'
+runs:
+  using: 'composite'
+  steps:
+    - shell: bash
+      run: |
+        ARGS="${{ inputs.check }} ${{ inputs.domain }}"
+        if [ "${{ inputs.exit-code }}" = "true" ]; then ARGS="$ARGS --exit-code"; fi
+        if [ -n "${{ inputs.fail-under }}" ]; then ARGS="$ARGS --fail-under ${{ inputs.fail-under }}"; fi
+        if [ "${{ inputs.json }}" = "true" ]; then ARGS="$ARGS --json"; fi
+        npx -y @domainintel/cli@latest $ARGS

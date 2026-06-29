@@ -134,9 +134,39 @@ cat domains.txt | xargs -I{} domainintel whois {} --json > whois.ndjson
 
 ## Use in CI
 
-### GitHub Actions
+### GitHub Action
 
-Catch an expiring certificate before your users (or your monitoring) do:
+This repo doubles as a GitHub Action, so you don't even need to script `npx`:
+
+```yaml
+name: domain-health
+on:
+  schedule:
+    - cron: '0 6 * * *'   # daily
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSL not expiring within 21 days
+        uses: Bishop81/domainintel-cli@v1
+        with:
+          domain: ${{ vars.DOMAIN }}
+          check: ssl
+          fail-under: 21
+      - name: DNS / email auth configured
+        uses: Bishop81/domainintel-cli@v1
+        with:
+          domain: ${{ vars.DOMAIN }}
+          check: dns
+```
+
+Inputs: `domain` (required), `check` (default `full`), `fail-under` (ssl only), `exit-code` (default `true`, fail on problems), `json`.
+
+### GitHub Actions (raw CLI)
+
+Or call the CLI directly. Catch an expiring certificate before your users (or your monitoring) do:
 
 ```yaml
 name: domain-health
